@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Ticket Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4;
+        }
+        .card {
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .btn {
+            border-radius: 0.75rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        input[type="text"], input[type="number"] {
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+        input[type="text"]:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #34d399;
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.4);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white card p-8 md:p-12 max-w-lg w-full text-center">
+        <h1 class="text-4xl font-extrabold text-emerald-700 mb-6">
+            Welcome to {{ garden_name }}
+        </h1>
+        <p class="text-lg text-gray-700 mb-8">
+            Book your tickets easily from your phone!
+        </p>
+
+        <div class="mb-8 p-6 bg-emerald-50 rounded-xl shadow-inner">
+            <h2 class="text-2xl font-semibold text-emerald-600 mb-4">Ticket Prices</h2>
+            <p class="text-xl text-gray-800 mb-2">
+                Adult: <span class="font-bold text-emerald-800">₹{{ "%.2f"|format(adult_price) }}</span> per person
+            </p>
+            <p class="text-xl text-gray-800">
+                Child: <span class="font-bold text-emerald-800">₹{{ "%.2f"|format(child_price) }}</span> per person
+            </p>
+        </div>
+
+        <form action="/submit_ticket" method="POST" class="space-y-6">
+            <div>
+                <label for="visitorName" class="block text-left text-gray-700 text-lg font-medium mb-2">Visitor Name</label>
+                <input type="text" id="visitorName" name="visitorName" required
+                       class="w-full border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+            </div>
+            <div>
+                <label for="numAdults" class="block text-left text-gray-700 text-lg font-medium mb-2">Number of Adults</label>
+                <input type="number" id="numAdults" name="numAdults" min="0" value="1" required
+                       class="w-full border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+            </div>
+            <div>
+                <label for="numChildren" class="block text-left text-gray-700 text-lg font-medium mb-2">Number of Children</label>
+                <input type="number" id="numChildren" name="numChildren" min="0" value="0" required
+                       class="w-full border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+            </div>
+            <div>
+                <label for="phoneNumber" class="block text-left text-gray-700 text-lg font-medium mb-2">Phone Number</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" required
+                       class="w-full border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500">
+            </div>
+            <button type="submit"
+                    class="btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 text-xl">
+                Proceed to Payment
+            </button>
+        </form>
+
+    </div>
+</body>
+</html>

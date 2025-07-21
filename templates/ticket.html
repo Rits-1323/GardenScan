@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Garden Ticket</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4;
+        }
+        .card {
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .ticket-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #d1d5db;
+        }
+        .ticket-detail:last-child {
+            border-bottom: none;
+        }
+        .ticket-detail-label {
+            font-weight: 500;
+            color: #4b5563;
+        }
+        .ticket-detail-value {
+            font-weight: 600;
+            color: #10b981;
+        }
+        .total-amount {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #065f46;
+        }
+
+        .print-button {
+            border-radius: 0.75rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        @media print {
+            .print-button {
+                display: none;
+            }
+            body {
+                background-color: #fff;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white card p-8 md:p-12 max-w-lg w-full text-center">
+        <h1 class="text-4xl font-extrabold text-emerald-700 mb-6">
+            Your Ticket is Confirmed!
+        </h1>
+        <p class="text-lg text-gray-700 mb-8">
+            Thank you for booking your visit to {{ ticket.garden_name }}.
+        </p>
+
+        <div class="mb-8 p-6 bg-emerald-50 rounded-xl shadow-inner text-left">
+            <h2 class="text-2xl font-semibold text-emerald-600 mb-4">Ticket Details</h2>
+
+            <div class="ticket-detail">
+                <span class="ticket-detail-label">Visitor Name:</span>
+                <span class="ticket-detail-value">{{ ticket.visitor_name }}</span>
+            </div>
+            <div class="ticket-detail">
+                <span class="ticket-detail-label">Garden:</span>
+                <span class="ticket-detail-value">{{ ticket.garden_name }}</span>
+            </div>
+            <div class="ticket-detail">
+                <span class="ticket-detail-label">Adults:</span>
+                <span class="ticket-detail-value">{{ ticket.num_adults }}</span>
+            </div>
+            <div class="ticket-detail">
+                <span class="ticket-detail-label">Children:</span>
+                <span class="ticket-detail-value">{{ ticket.num_children }}</span>
+            </div>
+            <div class="ticket-detail">
+                <span class="ticket-detail-label">Date of Visit:</span>
+                <span class="ticket-detail-value">{{ ticket.date_of_visit }}</span>
+            </div>
+            <div class="ticket-detail">
+                <span class="ticket-detail-label">Phone Number:</span>
+                <span class="ticket-detail-value">{{ ticket.phone_number }}</span>
+            </div>
+            <div class="mt-6 pt-4 border-t-2 border-emerald-300 flex justify-between items-center">
+                <span class="text-2xl font-bold text-emerald-800">Total Amount:</span>
+                <span class="total-amount">₹{{ "%.2f"|format(ticket.total_amount) }}</span>
+            </div>
+        </div>
+
+        <p class="text-gray-500 text-sm">
+            Please show this ticket at the entrance.
+        </p>
+
+        <button onclick="window.print()"
+                class="print-button mt-8 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 text-xl">
+            Print Ticket (Save as PDF)
+        </button>
+    </div>
+</body>
+</html>

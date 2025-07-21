@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4;
+        }
+        .card {
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .btn {
+            border-radius: 0.75rem;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white card p-8 md:p-12 max-w-lg w-full text-center">
+        <h1 class="text-4xl font-extrabold text-emerald-700 mb-6">
+            Payment Required
+        </h1>
+        <p class="text-lg text-gray-700 mb-8">
+            Please make the payment using the details below.
+        </p>
+
+        <div class="mb-8 p-6 bg-emerald-50 rounded-xl shadow-inner">
+            <h2 class="text-2xl font-semibold text-emerald-600 mb-4">Payment Information</h2>
+            <p class="text-xl text-gray-800 mb-2">
+                Total Amount: <span class="font-bold text-emerald-800">₹{{ "%.2f"|format(total_amount) }}</span>
+            </p>
+            <p class="text-xl text-gray-800">
+                Account Number: <span class="font-bold text-emerald-800">{{ account_number }}</span>
+            </p>
+            <p class="text-sm text-gray-600 mt-4">
+                (This is a placeholder. In a real application, you would integrate with a payment gateway here.)
+            </p>
+        </div>
+
+        <form action="/confirm_payment/{{ ticket_id }}" method="POST">
+            <button type="submit"
+                    class="btn w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 text-xl">
+                I have Paid & Confirmed
+            </button>
+        </form>
+
+        <p class="mt-6 text-gray-500 text-sm">
+            Ticket ID: <span class="font-mono">{{ ticket_id }}</span>
+        </p>
+    </div>
+</body>
+</html>
