@@ -6,10 +6,10 @@ import mysql.connector
 app = Flask(__name__)
 
 DB_CONFIG = {
-    'host': 'localhost',
-    'user':'root',
-    'password': 'R!tv!k@14',
-    'database': 'GardenDB'
+    'host': 'host',
+    'user':'user',
+    'password': 'pswd',
+    'database': 'db'
 }
 
 def get_db_connection():
@@ -68,9 +68,7 @@ def index():
 
 @app.route('/submit_ticket', methods=['POST'])
 def submit_ticket():
-    """
-    Handles the submission of the visitor form.
-    """
+
     conn = get_db_connection()
     if conn is None:
         return "Database connection error.", 500
@@ -90,7 +88,6 @@ def submit_ticket():
         child_price = float(garden_details["child_price"])
         total_amount = (num_adults * adult_price) + (num_children * child_price)
 
-        # Insert ticket details in the DB
         sql = """
         INSERT INTO tickets (garden_id, visitor_name, num_adults, num_children, total_amount, phone, visit_date, payment_status)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
@@ -104,7 +101,6 @@ def submit_ticket():
 
         ticket_id = cursor.lastrowid
 
-        # Redirection
         return redirect(url_for('payment_page', ticket_id=ticket_id))
 
     except ValueError:
@@ -184,10 +180,7 @@ def confirm_payment(ticket_id):
 
 @app.route('/ticket_confirmed/<int:ticket_id>')
 def ticket_confirmed(ticket_id):
-    """
-    Renders the final generated ticket page.
-    Fetches all ticket details from the database.
-    """
+
     conn = get_db_connection()
     if conn is None:
         return "Database connection error.", 500
